@@ -11,3 +11,10 @@ The Mac version was built with:
 * Qt 5.3.0 clang 64bit
 * Clang
 * Mac OS X 10.7
+
+### Windows
+
+The Windows version was built with:
+* Qt 5.4.0 32bit
+* Visual Studio 2013 Update 4
+* Windows 7 32 bit

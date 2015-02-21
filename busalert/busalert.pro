@@ -46,7 +46,9 @@ win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../buslib/release/ -lb
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../buslib/debug/ -lbuslib
 else:unix: LIBS += -L$$OUT_PWD/../buslib/ -lbuslib
 
-INCLUDEPATH += $$PWD/../buslib
+INCLUDEPATH += $$PWD/../buslib \
+    $$PWD
+
 DEPENDPATH += $$PWD/../buslib
 
 win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../buslib/release/libbuslib.a

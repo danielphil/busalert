@@ -3,6 +3,7 @@
 #include <string>
 #include <QNetworkAccessManager>
 #include <map>
+#include <functional>
 
 namespace Buslib
 {

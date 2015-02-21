@@ -5,6 +5,7 @@
 #include "Maybe.h"
 #include <string>
 #include <deque>
+#include <memory>
 
 namespace Buslib
 {

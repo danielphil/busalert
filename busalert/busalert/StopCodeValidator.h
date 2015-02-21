@@ -1,6 +1,7 @@
 #pragma once
 #include "buslib/BusStops.h"
 #include <QRegExpValidator>
+#include <memory>
 
 class StopCodeValidator : public QRegExpValidator
 {
