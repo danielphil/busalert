@@ -1,6 +1,7 @@
 #include "StopArrivalsWindow.h"
 #include "ui_StopArrivalsWindow.h"
 #include <QLabel>
+#include <QProgressBar>
 #include "busalert/ApiKey.h"
 #include "buslib/StopTimes.h"
 
@@ -21,6 +22,24 @@ StopArrivalsWindow::StopArrivalsWindow(
     QObject::connect(&m_update_timer, &QTimer::timeout, [this] () {
         RequestBusTimes();
     });
+
+    QVBoxLayout* vertical_layout = new QVBoxLayout;
+    vertical_layout->addStretch();
+
+    QLabel* message = new QLabel;
+    message->setText("Loading arrivals...");
+    message->setTextFormat(Qt::PlainText);
+    message->setAlignment(Qt::AlignHCenter);
+    vertical_layout->addWidget(message);
+
+    QProgressBar* progress_bar = new QProgressBar;
+    progress_bar->setMinimum(0);
+    progress_bar->setMaximum(0);
+    vertical_layout->addWidget(progress_bar);
+
+    vertical_layout->addStretch();
+
+    ui->scrollAreaWidgetContents->setLayout(vertical_layout);
 
     RequestBusTimes();
 }
