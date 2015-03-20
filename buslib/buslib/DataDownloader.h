@@ -15,7 +15,10 @@ namespace Buslib
         DataDownloader(const std::string& api_key);
 
         bool DownloadRequired() const;
-        void DownloadNewData(const std::function<void (bool)>& download_complete_callback);
+        void DownloadNewData(
+            const std::function<void (bool)>& download_complete_callback,
+            const std::function<void ()>& on_error_callback
+        );
         BusStops GetStopsData() const;
 
     private:
@@ -41,5 +44,6 @@ namespace Buslib
         std::deque<std::function<void ()>> m_tasks;
 
         std::function<void (bool)> m_download_complete_callback;
+        std::function<void ()> m_on_error_callback;
     };
 }

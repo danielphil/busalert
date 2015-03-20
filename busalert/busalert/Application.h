@@ -13,6 +13,7 @@ public:
 
 private:
     void ShowWindows();
+    void OnDownloadError();
 
     Buslib::DataDownloader m_downloader;
     std::unique_ptr<QSplashScreen> m_splash_screen;

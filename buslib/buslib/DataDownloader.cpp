@@ -32,7 +32,8 @@ namespace Buslib
     }
 
     void DataDownloader::DownloadNewData(
-        const std::function<void (bool)>& download_complete_callback
+        const std::function<void (bool)>& download_complete_callback,
+        const std::function<void ()>& on_error_callback
     ) {
         if (m_download_in_progress) {
             // Don't do anything if we're already trying to get the data
@@ -40,6 +41,7 @@ namespace Buslib
         }
 
         m_download_complete_callback = download_complete_callback;
+        m_on_error_callback = on_error_callback;
 
         Maybe<std::string> last_topology_id;
         QFile topology_id_file(m_topology_id_cache_location);
@@ -89,7 +91,7 @@ namespace Buslib
     }
 
     void DataDownloader::DownloadError(Buslib::Error error) {
-        qDebug() << "Error while downloading:" << error.ErrorMessage().c_str();
+        m_on_error_callback();
         m_tasks.clear();
         m_download_in_progress = false;
     }
