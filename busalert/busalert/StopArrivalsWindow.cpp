@@ -7,12 +7,14 @@
 
 StopArrivalsWindow::StopArrivalsWindow(
     const QString& stop_id,
+    QStatusBar* status_bar,
     QWidget* parent
 ) :
     QWidget(parent),
     ui(new Ui::StopArrivalsWindow),
     m_bus_tracker(ApiKey::MyBusTrackerKey),
-    m_stop_id(stop_id)
+    m_stop_id(stop_id),
+    m_status_bar(status_bar)
 {
     ui->setupUi(this);
 
@@ -20,6 +22,7 @@ StopArrivalsWindow::StopArrivalsWindow(
     m_update_timer.setInterval(60 * 1000);
 
     QObject::connect(&m_update_timer, &QTimer::timeout, [this] () {
+        m_status_bar->showMessage("Updating...");
         RequestBusTimes();
     });
 
@@ -123,11 +126,17 @@ void StopArrivalsWindow::RequestBusTimes() {
     m_bus_tracker.GetBusTimes(
         m_stop_id.toStdString(),
         [this] (QByteArray data) {
+            QString last_update_message = "Last update at ";
+            last_update_message += QDateTime::currentDateTime().toString();
+            m_status_bar->showMessage(last_update_message);
             Buslib::StopTimes stop_times;
             stop_times.FromData(data);
             BuildList(stop_times);
             m_update_timer.start();
         },
-        [this] (Buslib::Error /*error*/) { DisplayError(); }
+        [this] (Buslib::Error /*error*/) {
+            m_status_bar->clearMessage();
+            DisplayError();
+        }
     );
 }

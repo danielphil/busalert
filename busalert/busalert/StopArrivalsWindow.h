@@ -5,6 +5,7 @@
 #include "buslib/MyBusTracker.h"
 #include "buslib/StopTimes.h"
 #include <QTimer>
+#include <QStatusBar>
 
 namespace Ui {
 class StopArrivalsWindow;
@@ -17,6 +18,7 @@ class StopArrivalsWindow : public QWidget
 public:
     explicit StopArrivalsWindow(
         const QString& stop_id,
+        QStatusBar* status_bar,
         QWidget *parent = 0
     );
     ~StopArrivalsWindow();
@@ -32,6 +34,7 @@ private:
     Buslib::MyBusTracker m_bus_tracker;
     QTimer m_update_timer;
     const QString m_stop_id;
+    QStatusBar* m_status_bar;
 };
 
 #endif // STOPARRIVALSWINDOW_H

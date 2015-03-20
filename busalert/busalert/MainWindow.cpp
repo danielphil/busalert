@@ -59,6 +59,8 @@ void MainWindow::on_addStop_clicked()
 }
 
 void MainWindow::SelectionChanged() {
+    statusBar()->clearMessage();
+
     QModelIndexList selected_indicies = ui->stopsList->selectionModel()->selectedIndexes();
 
     ClearLayout(ui->bus_times_layout, true);
@@ -66,7 +68,7 @@ void MainWindow::SelectionChanged() {
         ui->bus_times_layout->addWidget(new NoStopSelectedWidget());
     } else {
         const QString stop_id = m_saved_stops_model->StopIdForIndex(selected_indicies.at(0).row());
-        ui->bus_times_layout->addWidget(new StopArrivalsWindow(stop_id));
+        ui->bus_times_layout->addWidget(new StopArrivalsWindow(stop_id, statusBar()));
     }
 }
 
