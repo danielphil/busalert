@@ -23,6 +23,8 @@ public:
 
 private:
     void BuildList(const Buslib::StopTimes&);
+    void DisplayError();
+
     void ClearLayout(QLayout* layout, bool deleteWidgets = true);
     void RequestBusTimes();
 

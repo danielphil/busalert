@@ -67,6 +67,24 @@ void StopArrivalsWindow::BuildList(const Buslib::StopTimes& stop_times) {
     ui->scrollAreaWidgetContents->setLayout(vertical_layout);
 }
 
+void StopArrivalsWindow::DisplayError() {
+    if (ui->scrollAreaWidgetContents->layout()) {
+        ClearLayout(ui->scrollAreaWidgetContents->layout());
+        delete ui->scrollAreaWidgetContents->layout();
+    }
+
+    QVBoxLayout* vertical_layout = new QVBoxLayout;
+    QLabel* error_message = new QLabel;
+    error_message->setScaledContents(true);
+    error_message->setText("An error occurred. Please check your Internet connection.");
+    error_message->setTextFormat(Qt::PlainText);
+    error_message->setWordWrap(true);
+    error_message->setAlignment(Qt::AlignCenter);
+    vertical_layout->addWidget(error_message);
+
+    ui->scrollAreaWidgetContents->setLayout(vertical_layout);
+}
+
 void StopArrivalsWindow::ClearLayout(QLayout* layout, bool deleteWidgets) {
     // From http://stackoverflow.com/questions/4272196/qt-remove-all-widgets-from-layout
     while (QLayoutItem* item = layout->takeAt(0)) {
@@ -91,6 +109,6 @@ void StopArrivalsWindow::RequestBusTimes() {
             BuildList(stop_times);
             m_update_timer.start();
         },
-        [] (Buslib::Error error) { qDebug() << "Something screwed up"; }
+        [this] (Buslib::Error /*error*/) { DisplayError(); }
     );
 }
