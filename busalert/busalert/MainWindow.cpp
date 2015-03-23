@@ -1,5 +1,6 @@
 #include "busalert/MainWindow.h"
 
+#include "busalert/Application.h"
 #include "busalert/EditStopDialog.h"
 #include "busalert/StopArrivalsWindow.h"
 #include "busalert/NoStopSelectedWidget.h"
@@ -10,6 +11,7 @@
 MainWindow::MainWindow(
     Buslib::DataDownloader* data_downloader,
     SavedStopsModel* saved_stops,
+    Application* app,
     QWidget* parent
 ) :
     QMainWindow(parent),
@@ -25,6 +27,11 @@ MainWindow::MainWindow(
         &QItemSelectionModel::selectionChanged,
         std::bind(&MainWindow::SelectionChanged, this)
     );
+
+    QMenu *helpMenu = new QMenu(tr("&Help"), this);
+    QAction *aboutAction = helpMenu->addAction(tr("&About"));
+    QObject::connect(aboutAction, &QAction::triggered, [app] () { app->ShowAboutBox(); });
+    menuBar()->addMenu(helpMenu);
 
     SelectionChanged();
 }

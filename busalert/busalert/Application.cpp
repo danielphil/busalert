@@ -32,8 +32,19 @@ void Application::Start() {
     }
 }
 
-void Application::ShowWindows() {
-    m_main_window.reset(new MainWindow(&m_downloader, &m_saved_stops_model));
+void Application::ShowAboutBox() {
+    if (m_about_box) {
+        m_about_box->show();
+        m_about_box->raise();
+        m_about_box->activateWindow();
+    } else {
+        m_about_box.reset(new AboutBox);
+        m_about_box->show();
+    }
+}
+
+void Application::ShowWindows() {   
+    m_main_window.reset(new MainWindow(&m_downloader, &m_saved_stops_model, this));
     m_main_window->show();
 }
 

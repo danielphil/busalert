@@ -8,6 +8,8 @@
 #include <QMenu>
 #include <QItemSelection>
 
+class Application;
+
 namespace Ui {
 class MainWindow;
 }
@@ -20,6 +22,7 @@ public:
     explicit MainWindow(
         Buslib::DataDownloader* data_downloader,
         SavedStopsModel* saved_stops,
+        Application* app,
         QWidget *parent = 0
     );
     ~MainWindow();
