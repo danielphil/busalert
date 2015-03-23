@@ -83,7 +83,10 @@ void StopArrivalsWindow::BuildList(const Buslib::StopTimes& stop_times) {
         if (arrival.IsDiverted()) {
             text = "Diverted";
         } else {
-            text = QString::number(arrival.Minutes()) + " minutes";
+            if (arrival.IsEstimated()) {
+                text = "Estimated in ";
+            }
+            text += QString::number(arrival.Minutes()) + " minutes";
         }
         arrival_time_label->setText(text);
         arrival_time_label->setTextFormat(Qt::PlainText);

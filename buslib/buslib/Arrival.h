@@ -11,7 +11,8 @@ namespace Buslib
             const QString& destination,
             int minutes,
             const QString& time,
-            bool diverted
+            bool diverted,
+            bool estimated_time
         );
 
         const QString& Destination() const;
@@ -19,6 +20,7 @@ namespace Buslib
         const QString& Time() const;
         const QString& ServiceName() const;
         bool IsDiverted() const;
+        bool IsEstimated() const;
 
     private:
         QString m_destination;
@@ -26,5 +28,6 @@ namespace Buslib
         QString m_time;
         QString m_service;
         bool m_diverted;
+        bool m_is_estimated;
     };
 }

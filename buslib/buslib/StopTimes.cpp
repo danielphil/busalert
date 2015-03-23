@@ -18,7 +18,8 @@ namespace Buslib
                 QString time = time_data.toObject()["time"].toString();
                 QString reliability = time_data.toObject()["reliability"].toString();
                 bool diverted = reliability == "V";
-                m_arrivals.push_back(Arrival(service, destination, minutes, time, diverted));
+                bool estimated = reliability == "T";
+                m_arrivals.push_back(Arrival(service, destination, minutes, time, diverted, estimated));
             }
         }
         return true;
