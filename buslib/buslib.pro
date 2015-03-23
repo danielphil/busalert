@@ -20,7 +20,8 @@ SOURCES += buslib/MyBusTracker.cpp \
     buslib/BusStops.cpp \
     buslib/BusStop.cpp \
     buslib/StopTimes.cpp \
-    buslib/Arrival.cpp
+    buslib/Arrival.cpp \
+    buslib/Tools.cpp
 
 HEADERS += buslib/MyBusTracker.h \
     buslib/Error.h \
@@ -30,7 +31,8 @@ HEADERS += buslib/MyBusTracker.h \
     buslib/BusStops.h \
     buslib/BusStop.h \
     buslib/StopTimes.h \
-    buslib/Arrival.h
+    buslib/Arrival.h \
+    buslib/Tools.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

@@ -79,7 +79,13 @@ void StopArrivalsWindow::BuildList(const Buslib::StopTimes& stop_times) {
 
         QLabel* arrival_time_label = new QLabel;
         arrival_time_label->setScaledContents(true);
-        arrival_time_label->setText(QString::number(arrival.Minutes()) + " minutes");
+        QString text;
+        if (arrival.IsDiverted()) {
+            text = "Diverted";
+        } else {
+            text = QString::number(arrival.Minutes()) + " minutes";
+        }
+        arrival_time_label->setText(text);
         arrival_time_label->setTextFormat(Qt::PlainText);
         horizontal_layout->addWidget(arrival_time_label);
 

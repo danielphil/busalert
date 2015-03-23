@@ -6,12 +6,14 @@ namespace Buslib
         const QString& service_name,
         const QString& destination,
         int minutes,
-        const QString& time
+        const QString& time,
+        bool diverted
     ) :
         m_destination(destination),
         m_minutes(minutes),
         m_time(time),
-        m_service(service_name)
+        m_service(service_name),
+        m_diverted(diverted)
     {
     }
 
@@ -29,5 +31,9 @@ namespace Buslib
 
     const QString& Arrival::ServiceName() const {
         return m_service;
+    }
+
+    bool Arrival::IsDiverted() const {
+        return m_diverted;
     }
 }

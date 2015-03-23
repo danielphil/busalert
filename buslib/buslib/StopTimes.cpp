@@ -16,7 +16,9 @@ namespace Buslib
                 QString destination = time_data.toObject()["nameDest"].toString();
                 int minutes = time_data.toObject()["minutes"].toInt();
                 QString time = time_data.toObject()["time"].toString();
-                m_arrivals.push_back(Arrival(service, destination, minutes, time));
+                QString reliability = time_data.toObject()["reliability"].toString();
+                bool diverted = reliability == "V";
+                m_arrivals.push_back(Arrival(service, destination, minutes, time, diverted));
             }
         }
         return true;
