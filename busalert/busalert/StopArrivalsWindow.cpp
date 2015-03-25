@@ -7,6 +7,7 @@
 
 StopArrivalsWindow::StopArrivalsWindow(
     const QString& stop_id,
+    bool is_valid,
     QStatusBar* status_bar,
     QWidget* parent
 ) :
@@ -18,33 +19,37 @@ StopArrivalsWindow::StopArrivalsWindow(
 {
     ui->setupUi(this);
 
-    m_update_timer.setSingleShot(true);
-    m_update_timer.setInterval(60 * 1000);
+    if (is_valid) {
+        m_update_timer.setSingleShot(true);
+        m_update_timer.setInterval(60 * 1000);
 
-    QObject::connect(&m_update_timer, &QTimer::timeout, [this] () {
-        m_status_bar->showMessage("Updating...");
+        QObject::connect(&m_update_timer, &QTimer::timeout, [this] () {
+            m_status_bar->showMessage("Updating...");
+            RequestBusTimes();
+        });
+
+        QVBoxLayout* vertical_layout = new QVBoxLayout;
+        vertical_layout->addStretch();
+
+        QLabel* message = new QLabel;
+        message->setText("Loading arrivals...");
+        message->setTextFormat(Qt::PlainText);
+        message->setAlignment(Qt::AlignHCenter);
+        vertical_layout->addWidget(message);
+
+        QProgressBar* progress_bar = new QProgressBar;
+        progress_bar->setMinimum(0);
+        progress_bar->setMaximum(0);
+        vertical_layout->addWidget(progress_bar);
+
+        vertical_layout->addStretch();
+
+        ui->scrollAreaWidgetContents->setLayout(vertical_layout);
+
         RequestBusTimes();
-    });
-
-    QVBoxLayout* vertical_layout = new QVBoxLayout;
-    vertical_layout->addStretch();
-
-    QLabel* message = new QLabel;
-    message->setText("Loading arrivals...");
-    message->setTextFormat(Qt::PlainText);
-    message->setAlignment(Qt::AlignHCenter);
-    vertical_layout->addWidget(message);
-
-    QProgressBar* progress_bar = new QProgressBar;
-    progress_bar->setMinimum(0);
-    progress_bar->setMaximum(0);
-    vertical_layout->addWidget(progress_bar);
-
-    vertical_layout->addStretch();
-
-    ui->scrollAreaWidgetContents->setLayout(vertical_layout);
-
-    RequestBusTimes();
+    } else {
+        DisplayInvalidStop();
+    }
 }
 
 StopArrivalsWindow::~StopArrivalsWindow()
@@ -108,6 +113,24 @@ void StopArrivalsWindow::DisplayError() {
     QLabel* error_message = new QLabel;
     error_message->setScaledContents(true);
     error_message->setText("An error occurred. Please check your Internet connection.");
+    error_message->setTextFormat(Qt::PlainText);
+    error_message->setWordWrap(true);
+    error_message->setAlignment(Qt::AlignCenter);
+    vertical_layout->addWidget(error_message);
+
+    ui->scrollAreaWidgetContents->setLayout(vertical_layout);
+}
+
+void StopArrivalsWindow::DisplayInvalidStop() {
+    if (ui->scrollAreaWidgetContents->layout()) {
+        ClearLayout(ui->scrollAreaWidgetContents->layout());
+        delete ui->scrollAreaWidgetContents->layout();
+    }
+
+    QVBoxLayout* vertical_layout = new QVBoxLayout;
+    QLabel* error_message = new QLabel;
+    error_message->setScaledContents(true);
+    error_message->setText("The selected stop is no longer available.");
     error_message->setTextFormat(Qt::PlainText);
     error_message->setWordWrap(true);
     error_message->setAlignment(Qt::AlignCenter);

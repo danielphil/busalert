@@ -74,8 +74,10 @@ void MainWindow::SelectionChanged() {
     if (selected_indicies.empty()) {
         ui->bus_times_layout->addWidget(new NoStopSelectedWidget());
     } else {
-        const QString stop_id = m_saved_stops_model->StopIdForIndex(selected_indicies.at(0).row());
-        ui->bus_times_layout->addWidget(new StopArrivalsWindow(stop_id, statusBar()));
+        const int index = selected_indicies.at(0).row();
+        const QString stop_id = m_saved_stops_model->StopIdForIndex(index);
+        const bool valid = m_saved_stops_model->IsStopValid(index);
+        ui->bus_times_layout->addWidget(new StopArrivalsWindow(stop_id, valid, statusBar()));
     }
 }
 

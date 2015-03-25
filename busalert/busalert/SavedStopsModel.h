@@ -1,5 +1,6 @@
 #pragma once
 #include "Maybe.h"
+#include "buslib/BusStops.h"
 #include <QAbstractListModel>
 
 class SavedStopsModel : public QAbstractListModel
@@ -15,12 +16,32 @@ public:
     void AddStop(const QString& stop_id, const QString& name);
     void RemoveStop(const QString& stop_id);
     QString StopIdForIndex(int index) const;
+    bool IsStopValid(int index) const;
+
+    void UpdateStopList(const Buslib::BusStops&);
 
 private:
+    class Item
+    {
+    public:
+        Item(
+            const QString& name, const QString& id
+        ) :
+            Name(name),
+            Id(id),
+            IsValid(true)
+        {
+        }
+
+        QString Name;
+        QString Id;
+        bool IsValid;
+    };
+
     Maybe<int> FindIndexForStop(const QString& stop_id) const;
     void Save();
     void Restore();
 
     // Stop name to stop ID
-    std::vector<std::pair<QString, QString>> m_stops;
+    std::vector<Item> m_stops;
 };

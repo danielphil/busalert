@@ -18,6 +18,7 @@ class StopArrivalsWindow : public QWidget
 public:
     explicit StopArrivalsWindow(
         const QString& stop_id,
+        bool is_valid,
         QStatusBar* status_bar,
         QWidget *parent = 0
     );
@@ -26,6 +27,7 @@ public:
 private:
     void BuildList(const Buslib::StopTimes&);
     void DisplayError();
+    void DisplayInvalidStop();
 
     void ClearLayout(QLayout* layout, bool deleteWidgets = true);
     void RequestBusTimes();
