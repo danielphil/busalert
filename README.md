@@ -21,8 +21,8 @@ The Windows version was built with:
 * Inno Setup 5.5.5 Unicode with Inno Setup Preprocessor
 
 To build:
-1. Make sure that the Inno Setup compiler (`iscc`) is installed and in your path.
-1. Open the Qt Command Prompt (MSVC 2013) from the Start menu.
-1. Run `vcvarsall.bat` in the command prompt. On my system, this is located in `C:\Program Files\Microsoft Visual Studio 12.0\VC\vcvarsall.bat`.
-1. cd back to your clone of `busalert` and run `winbuild.bat`.
-1. If everything goes well, you should end up with `setup.exe` in `build\Installer`.
+ 1. Make sure that the Inno Setup compiler (`iscc`) is installed and in your path.
+ 2. Open the Qt Command Prompt (MSVC 2013) from the Start menu.
+ 3. Run `vcvarsall.bat` in the command prompt. On my system, this is located in `C:\Program Files\Microsoft Visual Studio 12.0\VC\vcvarsall.bat`.
+ 4. cd back to your clone of `busalert` and run `winbuild.bat`.
+ 5. If everything goes well, you should end up with `setup.exe` in `build\Installer`.
