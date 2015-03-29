@@ -7,3 +7,5 @@ mv busalert/busalert.app/Contents/MacOS/busalert "busalert/busalert.app/Contents
 mv busalert/busalert.app "busalert/Edinburgh Buses.app"
 cd busalert
 macdeployqt "Edinburgh Buses.app" -dmg
+
+mv "Edinburgh Buses.dmg" EdinburghBuses.dmg

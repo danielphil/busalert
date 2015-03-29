@@ -12,6 +12,11 @@ The Mac version was built with:
 * Clang
 * Mac OS X 10.7
 
+To build:
+ 1. Check that `qmake` is in your path.
+ 2. Run `macbuild.sh`
+ 3. If the build completes successfully, you can find the output dmg in `build/busalert/EdinburghBuses.dmg`.
+
 ### Windows
 
 The Windows version was built with:
