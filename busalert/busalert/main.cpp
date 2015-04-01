@@ -5,6 +5,7 @@
 #include "buslib/StopTimes.h"
 
 #include <QApplication>
+#include <QNetworkProxyFactory>
 
 int main(int argc, char *argv[])
 {
@@ -13,6 +14,9 @@ int main(int argc, char *argv[])
 
     a.setOrganizationName("danielphil");
     a.setApplicationName("Edinburgh Bus Tracker");
+
+    // Use system configured HTTP proxy server settings (if applicable)
+    QNetworkProxyFactory::setUseSystemConfiguration(true);
 
     Application app;
     app.Start();
