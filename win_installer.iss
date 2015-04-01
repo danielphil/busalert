@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Edinburgh Buses"
-#define MyAppVersion "0.1"
+#define MyAppVersion "0.1.1"
 #define MyAppPublisher "Daniel Phillips"
 #define MyAppURL "https://github.com/danielphil/busalert/"
 #define MyAppExeName "busalert.exe"
