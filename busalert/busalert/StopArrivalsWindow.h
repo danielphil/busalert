@@ -2,6 +2,7 @@
 #define STOPARRIVALSWINDOW_H
 
 #include <QWidget>
+#include "busalert/ArrivalsModel.h"
 #include "buslib/MyBusTracker.h"
 #include "buslib/StopTimes.h"
 #include <QTimer>
@@ -34,6 +35,7 @@ private:
 
     Ui::StopArrivalsWindow *ui;
     Buslib::MyBusTracker m_bus_tracker;
+    ArrivalsModel m_arrivals_model;
     QTimer m_update_timer;
     const QString m_stop_id;
     QStatusBar* m_status_bar;

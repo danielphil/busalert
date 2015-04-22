@@ -2,6 +2,7 @@
 #include "ui_StopArrivalsWindow.h"
 #include <QLabel>
 #include <QProgressBar>
+#include <QTableView>
 #include "busalert/ApiKey.h"
 #include "buslib/StopTimes.h"
 
@@ -64,42 +65,21 @@ void StopArrivalsWindow::BuildList(const Buslib::StopTimes& stop_times) {
     }
 
     QVBoxLayout* vertical_layout = new QVBoxLayout;
+    m_arrivals_model.ClearArrivals();
     for (const Buslib::Arrival& arrival : stop_times.ArrivalsInTimeOrder()) {
-        QHBoxLayout* horizontal_layout = new QHBoxLayout;
-
-        QLabel* bus_number = new QLabel;
-        bus_number->setScaledContents(true);
-        bus_number->setText(arrival.ServiceName());
-        bus_number->setTextFormat(Qt::PlainText);
-        bus_number->setFrameStyle(QFrame::Box);
-        horizontal_layout->addWidget(bus_number);
-
-        QLabel* destination = new QLabel;
-        destination->setScaledContents(true);
-        destination->setText(arrival.Destination());
-        destination->setTextFormat(Qt::PlainText);
-        horizontal_layout->addWidget(destination);
-
-        horizontal_layout->addStretch();
-
-        QLabel* arrival_time_label = new QLabel;
-        arrival_time_label->setScaledContents(true);
-        QString text;
-        if (arrival.IsDiverted()) {
-            text = "Diverted";
-        } else {
-            if (arrival.IsEstimated()) {
-                text = "Estimated in ";
-            }
-            text += QString::number(arrival.Minutes()) + " minutes";
-        }
-        arrival_time_label->setText(text);
-        arrival_time_label->setTextFormat(Qt::PlainText);
-        horizontal_layout->addWidget(arrival_time_label);
-
-        vertical_layout->addLayout(horizontal_layout);
+        m_arrivals_model.AddArrival(arrival);
     }
-    vertical_layout->addStretch();
+
+    QTableView* table_view = new QTableView;
+    table_view->setShowGrid(false);
+    table_view->setAlternatingRowColors(true);
+    table_view->setCornerButtonEnabled(false);
+    table_view->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    table_view->setSelectionMode(QAbstractItemView::NoSelection);
+    table_view->verticalHeader()->setVisible(false);
+    table_view->horizontalHeader()->setStretchLastSection(true);
+    table_view->setModel(&m_arrivals_model);
+    vertical_layout->addWidget(table_view);
     ui->scrollAreaWidgetContents->setLayout(vertical_layout);
 }
 

@@ -22,7 +22,8 @@ SOURCES += busalert/main.cpp\
     busalert/Application.cpp \
     busalert/SavedStopsModel.cpp \
     busalert/NoStopSelectedWidget.cpp \
-    busalert/AboutBox.cpp
+    busalert/AboutBox.cpp \
+    busalert/ArrivalsModel.cpp
 
 HEADERS  += busalert/MainWindow.h \
     busalert/EditStopDialog.h \
@@ -33,7 +34,8 @@ HEADERS  += busalert/MainWindow.h \
     busalert/Application.h \
     busalert/SavedStopsModel.h \
     busalert/NoStopSelectedWidget.h \
-    busalert/AboutBox.h
+    busalert/AboutBox.h \
+    busalert/ArrivalsModel.h
 
 FORMS    += busalert/MainWindow.ui \
     busalert/EditStopDialog.ui \
