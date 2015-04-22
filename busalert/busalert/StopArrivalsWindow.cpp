@@ -79,6 +79,7 @@ void StopArrivalsWindow::BuildList(const Buslib::StopTimes& stop_times) {
     table_view->verticalHeader()->setVisible(false);
     table_view->horizontalHeader()->setStretchLastSection(true);
     table_view->setModel(&m_arrivals_model);
+    table_view->setFocusPolicy(Qt::NoFocus);
     vertical_layout->addWidget(table_view);
     ui->scrollAreaWidgetContents->setLayout(vertical_layout);
 }
